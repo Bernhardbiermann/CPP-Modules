@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <fstream>
 #include <sstream>
+#include <cctype>
 #include <map>
 
 #define BLUE "\033[34m"
@@ -40,7 +41,13 @@ Access:
 
 class BtcEx {
 	private:
+		// VARIABLES ////////////////////////////////////
 		std::map<std::string, float>	btcExchangeTable;
+
+		// HELPER //////////////////////////////////////
+		std::string	trimWhitespace(const std::string &line);
+		bool	isValidValue(const std::string& input);
+		bool	isValidDate(const std::string &date);
 
 
 	public:
@@ -49,30 +56,7 @@ class BtcEx {
 		BtcEx &operator=(const BtcEx& other);
 		~BtcEx();
 
-	void	loadDataBase(const std::string& filename){
-		std::ifstream infile(filename.c_str());
-		std::string line;
-		bool header = false;
-		
-		if (!infile)
-			throw std::runtime_error("Opening infile failed!");
-		getline(infile, line);
-		line.split();
-		if (!(line == "date,exchange_rate"))
-			throw std::runtime_error("Checking header failed!");
-		while (getline(infile, line)) 
-		{
-			std::string year = input.substr(0, input.length());
-			std::string "-" = input.substr(0, input.length());
-			std::string month = input.substr(0, input.length());
-			std::string "-" = input.substr(0, input.length());
-			std::string day = input.substr(0, input.length());
-			std::string "|" = input.substr(0, input.length());
-			std::string btcValue = input.substr(0, input.length());
-		}
-	};
-
-
+	void	loadDataBase(const std::string& filename);
 
 	bool	isDatabaseValid() const;
 	bool	hasDate(const std::string &date) const;
@@ -80,6 +64,9 @@ class BtcEx {
 	float	getRateForDate(const std::string &date) const;
 	void	displayResult(const std::string &date, float amount, float value);
 };
+
+std::string	trimSpaces(const std::string &line);
+
 
 
 
