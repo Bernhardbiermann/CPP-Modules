@@ -1,5 +1,5 @@
 #include <iostream>
-#include "BitcoinExchange.hpp"
+#include "RPN.hpp"
 
 int main(int argc, char **argv)
 {
@@ -9,11 +9,10 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	BitcoinExchange BitcoinExchange;
+	RPN rpn;
 	
 	try {
-			BitcoinExchange.loadDataBase("data.csv");
-			BitcoinExchange.processInput(argv[1]);
+			rpn.processInput(argv[1]);
 	} catch (std::exception &e) {
 			std::cerr << RED << e.what() << '\n' << RESET;
 		}

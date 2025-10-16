@@ -1,5 +1,5 @@
-#ifndef EASYFINDER_HPP
-# define EASYFINDER_HPP
+#ifndef BITCOINEXCHANGE_HPP
+# define BITCOINEXCHANGE_HPP
 
 #include <iostream>
 #include <algorithm>
@@ -8,6 +8,8 @@
 #include <sstream>
 #include <cctype>
 #include <map>
+#include <limits>
+#include <string>
 
 #define BLUE "\033[34m"
 #define YELLOW "\033[33m"
@@ -39,36 +41,28 @@ Access:
 6) Sauber schliessen
 */
 
-class BtcEx {
+class BitcoinExchange {
 	private:
-		// VARIABLES ////////////////////////////////////
+		// VARIABLES /////////////////////////////////////
 		std::map<std::string, float>	btcExchangeTable;
 
-		// HELPER //////////////////////////////////////
+		// HELPER ////////////////////////////////////////
 		std::string	trimWhitespace(const std::string &line);
-		bool	isValidValue(const std::string& input);
+		int		isValidValue(const std::string& input);
 		bool	isValidDate(const std::string &date);
+		bool	checkHeader(const std::string& input);
+		float	getExchangerate(const std::string& date) const;
 
 
 	public:
-		BtcEx();
-		BtcEx(const BtcEx& other);
-		BtcEx &operator=(const BtcEx& other);
-		~BtcEx();
+		BitcoinExchange();
+		BitcoinExchange(const BitcoinExchange& other);
+		BitcoinExchange &operator=(const BitcoinExchange& other);
+		~BitcoinExchange();
 
-	void	loadDataBase(const std::string& filename);
-
-	bool	isDatabaseValid() const;
-	bool	hasDate(const std::string &date) const;
-	void	processInput(const std::string &inputfile);
-	float	getRateForDate(const std::string &date) const;
-	void	displayResult(const std::string &date, float amount, float value);
+		// METHODS //////////////////////////////////////
+		void	loadDataBase(const std::string& filename);
+		void	processInput(const std::string& filename);
 };
-
-std::string	trimSpaces(const std::string &line);
-
-
-
-
 
 #endif
