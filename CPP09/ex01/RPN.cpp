@@ -15,33 +15,7 @@ RPN& RPN::operator=(const RPN& other) {
 
 RPN::~RPN() {};
 
-
 // HELPER //////////////////////////////////////////////////////////////////////
-
-/*
-| Funktion     | Beschreibung                                            |
-| ------------ | ------------------------------------------------------- |
-| `size()`     | Gibt die Anzahl der Elemente zurück                     |
-| `empty()`    | Gibt `true` zurück, wenn leer                           |
-| `clear()`    | Entfernt alle Elemente                                  |
-| `front()`    | Zugriff auf das erste Element                           |
-| `back()`     | Zugriff auf das letzte Element                          |
-| `at(index)`  | Zugriff mit Bereichsprüfung (wirft Ausnahme bei Fehler) |
-| `operator[]` | Zugriff ohne Bereichsprüfung                            |
-
-| Funktion                  | Beschreibung                                     |
-| ------------------------- | ------------------------------------------------ |
-| `push_back(value)`        | Fügt ein Element **am Ende** hinzu               |
-| `pop_back()`              | Entfernt das **letzte** Element                  |
-| `push_front(value)`       | Fügt ein Element **am Anfang** hinzu             |
-| `pop_front()`             | Entfernt das **erste** Element                   |
-| `insert(iterator, value)` | Fügt an beliebiger Position ein                  |
-| `erase(iterator)`         | Entfernt Element an Position                     |
-| `erase(first, last)`      | Entfernt Bereich von Elementen                   |
-| `assign(count, value)`    | Füllt den Container mit mehreren gleichen Werten |
-| `swap(otherDeque)`        | Tauscht den Inhalt mit einem anderen `deque`     |
-*/
-
 
 bool	RPN::isOperator(char c) 
 {
@@ -76,31 +50,29 @@ void	RPN::processInput(const std::string& input)
 			throw std::runtime_error(oss.str());
 		}
 		if (isDigit(token[0]))
-			RPNstack.push_back(std::atoi(token.c_str()));
+			RPNstack.push(std::atoi(token.c_str()));
 		if (isOperator(token[0]))
 		{
-			it = RPNstack.end();
-			--it;
-			if (it == RPNstack.begin())
+			if (RPNstack.size() < 2)
 			{
 				oss << RED "Not enough numbers on the stack" << RESET;
 				throw std::runtime_error(oss.str());
 			}
-			int last = RPNstack.back();
-			RPNstack.pop_back();
-			int beforeLast = RPNstack.back();
-			RPNstack.pop_back();
+			int last = RPNstack.top();
+			RPNstack.pop();
+			int beforeLast = RPNstack.top();
+			RPNstack.pop();
 			if (token[0] == '+')
-				RPNstack.push_back(beforeLast + last);
+				RPNstack.push(beforeLast + last);
 			else if (token[0] == '-')
-				RPNstack.push_back(beforeLast - last);
+				RPNstack.push(beforeLast - last);
 			else if (token[0] == '*')
-				RPNstack.push_back(beforeLast* last);
+				RPNstack.push(beforeLast* last);
 			else if (token[0] == '/')
 			{
 				if (last == 0)
 					throw std::runtime_error("Division by zero! Yikes!");
-				RPNstack.push_back(beforeLast / last);
+				RPNstack.push(beforeLast / last);
 			}
 		}
 	}
@@ -109,6 +81,6 @@ void	RPN::processInput(const std::string& input)
 		oss << RED "Too many numbers for all the operators!" << RESET;
 		throw std::runtime_error(oss.str());
 	}
-	int calculated = RPNstack.back();
+	int calculated = RPNstack.top();
 	std::cout << GREEN << calculated << RESET << std::endl;
 };

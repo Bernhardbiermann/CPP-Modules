@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
-#include <deque>
+#include <stack>
 #include <limits>
 #include <string>
 
@@ -52,7 +52,7 @@ container: deque
 class RPN {
 	private:
 		// VARIABLES /////////////////////////////////////
-		std::deque<int>	RPNstack;
+		std::stack<int>	RPNstack;
 
 		// HELPER ////////////////////////////////////////
 		bool	isOperator(char c);
