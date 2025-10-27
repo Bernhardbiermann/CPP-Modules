@@ -1,9 +1,9 @@
 CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
-NAME = RPN
-HEADER = RPN.hpp
+NAME = PmergeMe
+HEADER = PmergeMe.hpp
 SRCS = main.cpp \
-	RPN.cpp
+	PmergeMe.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
