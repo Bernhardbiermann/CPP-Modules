@@ -14,8 +14,7 @@ int main(int argc, char **argv)
 	try 
 	{
 		algo.parseInput(argc, argv);
-		algo.printContainer(std::vector<int> vec, 10);
-		algo.parseContainer(std::deque<int> vec, 10);
+		algo.takeTimeStempAndStartSorting();
 	} catch (std::exception &e) {
 		std::cerr << RED << e.what() << '\n' << RESET;
 		return 1;

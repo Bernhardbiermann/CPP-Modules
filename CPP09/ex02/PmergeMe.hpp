@@ -27,6 +27,9 @@ class PmergeMe {
 		std::vector<int> vec;
 		std::deque<int> deq;
 
+		int numberCount;
+		int recursionCount;
+
 	public:
 		PmergeMe();
 		PmergeMe(int argc, char** argv);
@@ -35,14 +38,20 @@ class PmergeMe {
 		~PmergeMe();
 
 		void parseInput(int argc, char** argv);
-		void setAndMeasure();
-
+		void takeTimeStempAndStartSorting();
+		
 		template <typename Container>
 		void	printContainer(const Container &c, size_t limit) const;
 
 	private:
 		template <typename Container>
 		void	mergeInsertionSort(Container &c);
+
+	// HELPER /////////////////////////////////////////////////////////////////
+	void throwError(const std::string& msg, const std::string& token);
+
+	template <typename Container>
+	bool isSorted(const Container &numbers);
 
 
 };
