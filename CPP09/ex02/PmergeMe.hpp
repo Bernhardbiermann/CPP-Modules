@@ -22,10 +22,10 @@
 
 #define DEBUG false
 
+template <typename T>
 class PmergeMe {
 	private:
-		std::vector<int> vec;
-		std::deque<int> deq;
+		T	numbers;
 
 		int numberCount;
 		int recursionCount;
@@ -37,23 +37,21 @@ class PmergeMe {
 		PmergeMe& operator=(const PmergeMe& oth);
 		~PmergeMe();
 
-		void parseInput(int argc, char** argv);
-		void takeTimeStempAndStartSorting();
-		
-		template <typename Container>
-		void	printContainer(const Container &c, size_t limit) const;
+		void	parseInput(int argc, char** argv);
+		void	takeTimeStempAndStartSorting();
+		void	printContainer(const T& c, size_t limit) const;
 
 	private:
-		template <typename Container>
-		void	mergeInsertionSort(Container &c);
+		void	mergeInsertionSort(T& numbers);
 
 	// HELPER /////////////////////////////////////////////////////////////////
 	void throwError(const std::string& msg, const std::string& token);
-
-	template <typename Container>
-	bool isSorted(const Container &numbers);
-
-
+	bool isSorted(const T& numbers);
+	bool printContainer(const T& c) const;
+	std::vector<size_t> genJacobsthal(size_t n);
+	void binaryInsert(T& c, int value);
 };
+
+# include "PmergeMe.tpp"
 
 #endif
