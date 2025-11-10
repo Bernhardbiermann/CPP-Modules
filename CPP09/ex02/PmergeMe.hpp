@@ -26,8 +26,7 @@ template <typename T>
 class PmergeMe {
 	private:
 		T	numbers;
-
-		int numberCount;
+		int comparisonsCount;
 		int recursionCount;
 
 	public:
