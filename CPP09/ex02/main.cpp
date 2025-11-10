@@ -14,10 +14,10 @@ int main(int argc, char **argv)
 		PmergeMe<std::deque<int> >	deq(argc, argv);
 
 		std::cout << BLUE "\n--- Using std::vector ---\n" RESET;
-		vec.takeTimeStempAndStartSorting();
+		vec.takeTimeStempAndStartSorting("std::vector");
 
 		std::cout << BLUE "\n--- Using std::deque ---\n" RESET;
-		deq.takeTimeStempAndStartSorting();
+		deq.takeTimeStempAndStartSorting("std::deque");
 
 	} catch (std::exception &e) {
 		std::cerr << RED << e.what() << '\n' << RESET;

@@ -40,7 +40,7 @@ void PmergeMe<T>::parseInput(int argc, char** argv)
 		}
 		//check limits
 		long value = std::atol(token.c_str());
-		if (value <= 0 || value > std::numeric_limits<int>::max())
+		if (value < 0 || value > std::numeric_limits<int>::max())
 			throwError("Number out of bounds", token);
 			
 		//check duplicate
@@ -52,7 +52,7 @@ void PmergeMe<T>::parseInput(int argc, char** argv)
 }
 
 template <typename T>
-void PmergeMe<T>::takeTimeStempAndStartSorting() 
+void PmergeMe<T>::takeTimeStempAndStartSorting(std::string type)
 {
 	std::cout << "Before: ";
 	printContainer(numbers);
@@ -67,13 +67,13 @@ void PmergeMe<T>::takeTimeStempAndStartSorting()
 	double time = double(end - start) / CLOCKS_PER_SEC * 1e6;
 
 	std::cout << "Time to process a range of " << numbers.size()
-			  << " elements with " GREEN << "std::vector" RESET ": " << time << " us" << std::endl;
+			  << " elements with " GREEN << type << RESET ": " << time << " us" << std::endl;
 }
 
 template <typename T>
-void PmergeMe<T>::mergeInsertionSort(T& newNumbers) 
+void PmergeMe<T>::mergeInsertionSort(T& numbers) 
 {
-	size_t	numberCount = newNumbers.size();
+	size_t	numberCount = numbers.size();
 	if (numberCount <= 1)
 		return ;
 	// init
@@ -82,8 +82,8 @@ void PmergeMe<T>::mergeInsertionSort(T& newNumbers)
 	// compare and split min/max
 	for (size_t i = 0; i + 1 < numberCount; i += 2)
 	{
-		int a = newNumbers[i];
-		int b = newNumbers[i + 1];
+		int a = numbers[i];
+		int b = numbers[i + 1];
 		if (a < b) {
 			smallNum.push_back(a);
 			bigNum.push_back(b);
@@ -92,9 +92,9 @@ void PmergeMe<T>::mergeInsertionSort(T& newNumbers)
 			smallNum.push_back(b);
 		}
 	}
-	// if odd newNumbers: add the last one to smallNum
+	// if odd numbers: add the last one to smallNum
 	if (numberCount % 2)
-		smallNum.push_back(newNumbers[numberCount - 1]);
+		smallNum.push_back(numbers[numberCount - 1]);
 
 	// sort the big ones recursively
 	mergeInsertionSort(bigNum);
@@ -129,7 +129,7 @@ void PmergeMe<T>::mergeInsertionSort(T& newNumbers)
 			binaryInsert(result, smallNum[i - 1]);
 	}
 
-	newNumbers = result;
+	numbers = result;
 }
 
 // HELPER /////////////////////////////////////////////////////////////////////

@@ -38,7 +38,7 @@ class PmergeMe {
 		~PmergeMe();
 
 		void	parseInput(int argc, char** argv);
-		void	takeTimeStempAndStartSorting();
+		void	takeTimeStempAndStartSorting(std::string type);
 
 	private:
 		void	mergeInsertionSort(T& numbers);
