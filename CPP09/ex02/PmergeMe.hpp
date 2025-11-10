@@ -39,17 +39,16 @@ class PmergeMe {
 
 		void	parseInput(int argc, char** argv);
 		void	takeTimeStempAndStartSorting();
-		void	printContainer(const T& c, size_t limit) const;
 
 	private:
 		void	mergeInsertionSort(T& numbers);
 
 	// HELPER /////////////////////////////////////////////////////////////////
-	void throwError(const std::string& msg, const std::string& token);
-	bool isSorted(const T& numbers);
-	bool printContainer(const T& c) const;
-	std::vector<size_t> genJacobsthal(size_t n);
-	void binaryInsert(T& c, int value);
+	void	throwError(const std::string& msg, const std::string& token);
+	void	printContainer(const T& c) const;
+	bool	isSorted(const T& numbers);
+	std::vector<size_t>	genJacobsthal(size_t n);
+	void	binaryInsert(T& c, int value);
 };
 
 # include "PmergeMe.tpp"

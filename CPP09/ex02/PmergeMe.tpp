@@ -55,14 +55,14 @@ template <typename T>
 void PmergeMe<T>::takeTimeStempAndStartSorting() 
 {
 	std::cout << "Before: ";
-	printContainer(numbers, 10);
+	printContainer(numbers);
 
 	clock_t start = clock();
 	mergeInsertionSort(numbers);
 	clock_t end = clock();
 
 	std::cout << "After: ";
-	printContainer(numbers, 10);
+	printContainer(numbers);
 
 	double time = double(end - start) / CLOCKS_PER_SEC * 1e6;
 
@@ -97,7 +97,7 @@ void PmergeMe<T>::mergeInsertionSort(T& newNumbers)
 		smallNum.push_back(newNumbers[numberCount - 1]);
 
 	// sort the big ones recursively
-	//mergeInsertionsSort(bigNum);
+	mergeInsertionSort(bigNum);
 
 	// add small[]
 	T result;
@@ -151,10 +151,10 @@ bool PmergeMe<T>::isSorted(const T& numbers)
 			return false;
 	}
 	return true;
-}
+}	
 
 template <typename T>
-bool PmergeMe<T>::printContainer(const T& c) const 
+void PmergeMe<T>::printContainer(const T& c) const 
 {
 	typename T::const_iterator it = c.begin();
 	while (it != c.end())
@@ -166,7 +166,8 @@ bool PmergeMe<T>::printContainer(const T& c) const
 }
 
 // Jacobsthal sequence generator
-std::vector<size_t> genJacobsthal(size_t n)
+template <typename T>
+std::vector<size_t> PmergeMe<T>::genJacobsthal(size_t n)
 {
 	std::vector<size_t> seq;
 	if (n == 0)
@@ -184,7 +185,7 @@ std::vector<size_t> genJacobsthal(size_t n)
 
 // Binary insert helper
 template <typename T>
-void binaryInsert(T& container, int value)
+void PmergeMe<T>::binaryInsert(T& container, int value)
 {
 	typename T::iterator it = std::lower_bound(container.begin(), container.end(), value);
 	container.insert(it, value);
